@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0B0B0F">
+<title>MaxiCode — сайты и Telegram-боты под ключ</title>
+<meta name="description" content="Создаю сайты и Telegram-ботов на заказ: быстро, современно, с гарантией. Лендинги, боты-магазины, автоворонки, интеграции с CRM.">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="MaxiCode — сайты и Telegram-боты под ключ">
+<meta property="og:description" content="Быстро, современно, с гарантией. Сайты, боты, автоматизация.">
+<meta property="og:image" content="og-image.png"><!-- заглушка: тёмная картинка 1200×630 рядом с index.html -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Переменные: тёмная тема + тёмное золото ===== */
+:root{
+  --bg:#0B0B0F; --bg-alt:#141419; --card:#16161C;
+  --gold:#D4AF37; --gold-light:#F5D76E; --gold-dark:#B8942E;
+  --text:#F5F5F0; --muted:#9A9A94;
+  --line-gold:rgba(212,175,55,.18); --line:rgba(255,255,255,.08);
+  --radius:16px; --ease:cubic-bezier(.4,0,.2,1);
+  --glow:0 0 28px rgba(212,175,55,.28);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px;background:var(--bg)}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+:focus-visible{outline:3px solid var(--gold-light);outline-offset:3px;border-radius:8px}
+.container{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
+section{padding:64px 0}
+.section-title{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.2}
+/* тонкая золотая линия под заголовками */
+.section-title::after{content:"";display:block;width:56px;height:2px;margin-top:14px;background:linear-gradient(90deg,var(--gold),transparent)}
+.section-sub{color:var(--muted);max-width:560px;margin-top:14px}
+.section-head{margin-bottom:40px}
+/* золотой разделитель между секциями */
+.alt,.hero{border-top:1px solid var(--line-gold)}
+
+/* ===== Кнопки ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:12px;font:600 1rem 'Inter',sans-serif;border:1.5px solid transparent;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s var(--ease),filter .4s var(--ease),background .4s var(--ease),color .4s var(--ease)}
+.btn:hover{transform:translateY(-2px) scale(1.03)}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--bg)}
+.btn-primary:hover{filter:brightness(1.1);box-shadow:var(--glow)}
+.btn-ghost{background:transparent;color:var(--gold);border-color:var(--gold)}
+.btn-ghost:hover{background:rgba(212,175,55,.1);box-shadow:var(--glow);color:var(--gold-light)}
+.btn-sm{padding:9px 16px;font-size:.9rem}
+/* мягкая пульсация тени у кнопки в шапке */
+.pulse{animation:pulse 3.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.0)}50%{box-shadow:0 0 22px 2px rgba(212,175,55,.4)}}
+
+/* ===== Шапка ===== */
+header{position:sticky;top:0;z-index:50;background:rgba(11,11,15,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line-gold)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-weight:800;font-size:1.3rem;letter-spacing:-.02em}
+.logo span{color:var(--gold)}
+.menu{position:absolute;top:68px;left:0;right:0;background:rgba(11,11,15,.97);border-bottom:1px solid var(--line-gold);padding:12px 20px 20px;display:none;flex-direction:column;gap:4px}
+.menu.open{display:flex}
+.menu a{padding:12px 0;font-weight:500;color:var(--muted);transition:color .4s var(--ease)}
+.menu a:hover{color:var(--gold-light)}
+.nav-cta{display:none}
+.burger{width:44px;height:44px;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.burger span{width:22px;height:2px;background:var(--text);transition:.4s var(--ease)}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ===== Hero с медленным золотым свечением ===== */
+.hero{position:relative;padding:72px 0 64px;overflow:hidden;border-top:0}
+.hero::before{content:"";position:absolute;inset:-30%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 30% 40%,rgba(212,175,55,.18),transparent 45%),radial-gradient(circle at 75% 60%,rgba(184,148,46,.14),transparent 40%);
+  animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{0%{transform:translate(-6%,-4%) scale(1)}100%{transform:translate(6%,5%) scale(1.15)}}
+.hero .container{position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:7px 14px;border:1px solid var(--line-gold);border-radius:99px;font-size:.88rem;font-weight:500;color:var(--text);background:rgba(212,175,55,.06);margin-bottom:24px}
+.dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;animation:dot 2.4s ease-in-out infinite}
+@keyframes dot{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 7px rgba(74,222,128,0)}}
+.hero h1{font-size:clamp(2.2rem,7vw,4rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;max-width:760px}
+.hero p{font-size:1.15rem;color:var(--muted);max-width:600px;margin:20px 0 32px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.trust{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:40px;color:var(--muted);font-size:.95rem;font-weight:500}
+.trust li::before{content:"✓";color:var(--gold);font-weight:800;margin-right:8px}
+
+/* ===== Карточки ===== */
+.grid{display:grid;gap:20px}
+.card{background:var(--card);border:1px solid var(--line-gold);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease)}
+.card:hover{transform:translateY(-6px);border-color:rgba(212,175,55,.5);box-shadow:0 14px 40px rgba(212,175,55,.16)}
+.card h3{font-size:1.2rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.97rem}
+.icon{width:48px;height:48px;border-radius:12px;background:rgba(212,175,55,.1);border:1px solid var(--line-gold);display:grid;place-items:center;font-size:1.4rem;margin-bottom:16px;transition:transform .5s var(--ease)}
+.card:hover .icon{transform:scale(1.12) rotate(-6deg)}
+.meta{margin-top:auto;padding-top:20px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700}
+.meta small{color:var(--muted);font-weight:500;font-size:.88rem}
+.meta span{color:var(--gold);font-size:1.05rem}
+
+/* ===== Процесс ===== */
+.alt{background:var(--bg-alt)}
+.steps{counter-reset:s}
+.step{position:relative;padding-left:56px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold);font-weight:700;display:grid;place-items:center;background:var(--bg);z-index:1;box-shadow:0 0 14px rgba(212,175,55,.35)}
+/* светящаяся линия: серая «дорожка» и золотая заливка, растущая при скролле (высоту/ширину задаёт JS через --p) */
+.steps{position:relative}
+.steps-line{position:absolute;left:19px;top:20px;width:2px;border-radius:2px;background:rgba(212,175,55,.16)}
+.steps-line i{position:absolute;left:0;top:0;width:100%;height:calc(var(--p,0) * 100%);border-radius:2px;
+  background:linear-gradient(180deg,var(--gold-dark),var(--gold),var(--gold-light));
+  box-shadow:0 0 10px rgba(212,175,55,.8),0 0 22px rgba(212,175,55,.35);transition:height .25s linear,width .25s linear}
+/* яркая «головка» на конце линии */
+.steps-line i::after{content:"";position:absolute;left:50%;bottom:-5px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 14px 4px rgba(245,215,110,.8)}
+.step.active::before{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--bg);box-shadow:0 0 18px rgba(212,175,55,.7)}
+.step::before{transition:background .5s var(--ease),color .5s var(--ease),box-shadow .5s var(--ease)}
+.step h3{font-size:1.05rem}
+.step p{color:var(--muted);font-size:.95rem}
+
+/* ===== Портфолио: заглушка ===== */
+.empty{max-width:640px;margin:0 auto;text-align:center;padding:48px 24px;border:1.5px dashed rgba(212,175,55,.5);border-radius:var(--radius);background:rgba(212,175,55,.03)}
+.empty .mark{font-size:2.4rem;color:var(--gold);line-height:1;margin-bottom:16px}
+.empty h3{font-size:1.4rem;margin-bottom:8px}
+.empty p{color:var(--muted);margin-bottom:24px}
+
+/* ===== Обо мне ===== */
+.about{display:grid;gap:32px;align-items:center}
+.photo{aspect-ratio:3/4;max-width:320px;width:100%;border-radius:24px;overflow:hidden;border:1px solid rgba(212,175,55,.45);box-shadow:0 0 40px rgba(212,175,55,.12)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.skills li{padding:7px 14px;border:1px solid var(--line);border-radius:99px;font-size:.9rem;font-weight:500;background:var(--card);transition:.4s var(--ease)}
+.skills li:hover{border-color:var(--gold);color:var(--gold-light)}
+.about p{color:var(--muted);margin-top:14px}
+
+/* ===== Контакты и выбор услуги ===== */
+.contact-wrap{display:grid;gap:32px}
+.links{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.pick-title{font-size:1.1rem;margin-bottom:14px}
+#form{background:var(--card);border:1px solid var(--line-gold);border-radius:var(--radius);padding:28px}
+.pick{display:grid;gap:10px;margin-bottom:18px}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:14px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);font:inherit;cursor:pointer;transition:border-color .4s var(--ease),box-shadow .4s var(--ease)}
+.opt b{color:var(--gold);font-weight:600;white-space:nowrap}
+.opt:hover{border-color:rgba(212,175,55,.5)}
+.opt[aria-checked="true"]{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,55,.15)}
+#form .btn{width:100%;text-align:center}
+#form .btn.disabled{opacity:.45;pointer-events:none}
+.note{color:var(--muted);font-size:.85rem;margin-top:12px;text-align:center}
+
+/* ===== Футер и «Наверх» ===== */
+footer{border-top:1px solid var(--line-gold);padding:32px 0;color:var(--muted);font-size:.92rem}
+.foot{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.foot ul{display:flex;gap:20px}
+.foot a{transition:color .4s var(--ease)}
+.foot a:hover{color:var(--gold-light)}
+#toTop{position:fixed;right:20px;bottom:20px;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--gold);background:var(--bg);color:var(--gold);font-size:1.3rem;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:.4s var(--ease)}
+#toTop.show{opacity:1;visibility:visible;transform:none}
+#toTop:hover{box-shadow:var(--glow);background:rgba(212,175,55,.12)}
+
+/* ===== Появление при скролле (задержку для stagger ставит JS) ===== */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+
+/* Уважаем prefers-reduced-motion: все анимации выключены */
+@media (prefers-reduced-motion:reduce){
+  *,*::before{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ===== Брейкпоинты (mobile-first) ===== */
+@media (min-width:768px){
+  section{padding:88px 0}
+  .grid.c3,.grid.c4{grid-template-columns:repeat(2,1fr)}
+  .grid.steps{grid-template-columns:1fr}
+  .about{grid-template-columns:320px 1fr;gap:56px}
+  .contact-wrap{grid-template-columns:1fr 1fr;gap:48px}
+  .foot{flex-direction:row;justify-content:space-between;align-items:center}
+}
+@media (min-width:1024px){
+  section{padding:100px 0}
+  .burger{display:none}
+  .menu{position:static;display:flex;flex-direction:row;gap:28px;padding:0;border:0;background:none}
+  .menu a{padding:0}
+  .nav-cta{display:inline-flex}
+  .grid.c3{grid-template-columns:repeat(3,1fr)}
+  .grid.c4{grid-template-columns:repeat(4,1fr)}
+  /* на десктопе номера сверху, линия идёт горизонтально */
+  .step{padding-left:0;padding-top:56px}
+  .steps-line{left:20px;right:calc(25% - 35px);top:19px;width:auto;height:2px}
+  .steps-line i{width:calc(var(--p,0) * 100%);height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light))}
+  .steps-line i::after{left:auto;right:-5px;bottom:auto;top:50%;margin:-5px 0 0 0}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Шапка ===== -->
+<header>
+  <div class="container nav">
+    <a href="#top" class="logo" aria-label="MaxiCode, на главную">Maxi<span>Code</span></a>
+    <nav id="menu" class="menu" aria-label="Основная навигация">
+      <a href="#services">Услуги</a>
+      <a href="#portfolio">Портфолио</a>
+      <a href="#about">Обо мне</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a href="https://t.me/BOPHAMETEAM" class="btn btn-primary btn-sm nav-cta pulse" target="_blank" rel="noopener">Написать в Telegram</a>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="badge"><span class="dot" aria-hidden="true"></span>Доступен для новых проектов</div>
+    <h1>Создаю сайты и Telegram-ботов под ключ</h1>
+    <p>Быстро, современно и с гарантией: запуск от 3 дней, бесплатные правки после сдачи и поддержка 30 дней.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn btn-primary">Смотреть услуги</a>
+      <a href="#contacts" class="btn btn-ghost">Обсудить проект</a>
+    </div>
+    <ul class="trust">
+      <li>Фиксированная цена в договоре</li>
+      <li>Отвечаю в течение часа</li>
+      <li>Исходники — ваши</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== Услуги ===== -->
+<section id="services" class="alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title">Услуги</h2>
+      <p class="section-sub">Цена зависит от объёма. После короткого разговора назову точную стоимость и срок.</p>
+    </div>
+    <div class="grid c3">
+      <article class="card reveal">
+        <div class="icon" aria-hidden="true">🖥️</div>
+        <h3>Landing page / сайт-визитка</h3>
+        <p>Адаптивный сайт, который объясняет, чем вы полезны, и приводит заявки. Быстрая загрузка и базовое SEO.</p>
+        <div class="meta"><small>Срок: 3–7 дней</small><span>от 10 000 ₽</span></div>
+      </article>
+      <article class="card reveal">
+        <div class="icon" aria-hidden="true">🤖</div>
+        <h3>Telegram-бот</h3>
+        <p>Автоворонки, магазин с оплатой, запись клиентов, поддержка. Бот работает круглосуточно вместо менеджера.</p>
+        <div class="meta"><small>Срок: 5–14 дней</small><span>от 15 000 ₽</span></div>
+      </article>
+      <article class="card reveal">
+        <div class="icon" aria-hidden="true">🔗</div>
+        <h3>Автоматизация и интеграции</h3>
+        <p>Свяжу сайт, бота и CRM через API: заявки сами попадают в таблицу, уведомления приходят вам в Telegram.</p>
+        <div class="meta"><small>Срок: 3–10 дней</small><span>от 5 000 ₽</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Процесс ===== -->
+<section>
+  <div class="container">
+    <div class="section-head reveal"><h2 class="section-title">Как мы будем работать</h2></div>
+    <div class="grid c4 steps">
+      <div class="steps-line" aria-hidden="true"><i></i></div>
+      <div class="step reveal"><h3>Обсуждаем задачу</h3><p>Короткий разговор в Telegram, 15 минут.</p></div>
+      <div class="step reveal"><h3>Договор и цена</h3><p>Фиксирую сроки и стоимость, берём предоплату.</p></div>
+      <div class="step reveal"><h3>Делаю и показываю</h3><p>Промежуточные версии, правки по ходу.</p></div>
+      <div class="step reveal"><h3>Запуск и поддержка</h3><p>Публикую, обучаю, 30 дней помогаю бесплатно.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Портфолио (пока пустое: заглушка) ===== -->
+<section id="portfolio" class="alt">
+  <div class="container">
+    <div class="section-head reveal"><h2 class="section-title">Портфолио</h2></div>
+    <div class="empty reveal">
+      <div class="mark" aria-hidden="true">✦</div>
+      <h3>Портфолио скоро пополнится</h3>
+      <p>Здесь появятся мои работы. Пока могу показать примеры по запросу в Telegram.</p>
+      <a href="#contacts" class="btn btn-primary">Запросить примеры</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Обо мне ===== -->
+<section id="about">
+  <div class="container about">
+    <figure class="photo reveal"><img src="ВАШЕ_ФОТО.jpg" alt="Фото автора" width="900" height="1200" loading="lazy"></figure>
+    <div class="reveal">
+      <h2 class="section-title">Обо мне</h2>
+      <p>Привет! Меня зовут Максим, я делаю сайты и Telegram-ботов для малого бизнеса и экспертов. Пишу чистый код, объясняю простым языком и не пропадаю посреди проекта.</p>
+      <p>Работаю напрямую, без посредников: вы общаетесь с тем, кто делает вашу задачу. После запуска остаюсь на связи и помогаю с доработками.</p>
+      <ul class="skills" aria-label="Навыки">
+        <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Python</li><li>aiogram</li><li>WordPress</li><li>REST API</li><li>Git</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Контакты ===== -->
+<section id="contacts" class="alt">
+  <div class="container contact-wrap">
+    <div class="reveal">
+      <h2 class="section-title">Обсудим ваш проект</h2>
+      <p class="section-sub">Быстрее всего — написать в Telegram. Опишите задачу в двух словах, и я отвечу с оценкой.</p>
+      <div class="links">
+        <a class="btn btn-primary" href="https://t.me/BOPHAMETEAM" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn btn-ghost" href="mailto:m85261135@gmail.com">m85261135@gmail.com</a>
+      </div>
+    </div>
+    <div id="form" class="reveal">
+      <h3 class="pick-title">Выберите услугу</h3>
+      <div class="pick" id="pick" role="radiogroup" aria-label="Выберите услугу">
+        <button type="button" class="opt" role="radio" aria-checked="false" data-service="Landing page / сайт-визитка" data-price="от 10 000 ₽"><span>Landing page / сайт-визитка</span><b>от 10 000 ₽</b></button>
+        <button type="button" class="opt" role="radio" aria-checked="false" data-service="Telegram-бот" data-price="от 15 000 ₽"><span>Telegram-бот</span><b>от 15 000 ₽</b></button>
+        <button type="button" class="opt" role="radio" aria-checked="false" data-service="Автоматизация и интеграции" data-price="от 5 000 ₽"><span>Автоматизация и интеграции</span><b>от 5 000 ₽</b></button>
+      </div>
+      <a id="writeBtn" class="btn btn-primary disabled" target="_blank" rel="noopener" aria-disabled="true">Написать мне</a>
+      <p class="note" id="pickNote">Выберите услугу, и я открою чат с готовым сообщением</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Футер ===== -->
+<footer>
+  <div class="container foot">
+    <span>© <span id="year">2026</span> MaxiCode. Все права защищены.</span>
+    <ul>
+      <li><a href="https://t.me/BOPHAMETEAM" target="_blank" rel="noopener">Telegram</a></li>
+      <li><a href="https://github.com/username" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="mailto:m85261135@gmail.com">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="Наверх">↑</button>
+
+<script>
+/* Год в футере */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ===== Бургер-меню ===== */
+const burger = document.getElementById('burger');
+const menu = document.getElementById('menu');
+function setMenu(open){
+  menu.classList.toggle('open', open);
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+}
+burger.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+/* ===== Плавный скролл по якорям ===== */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    const target = (id && id.startsWith('#') && id.length > 1) ? document.querySelector(id) : null;
+    if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+
+/* ===== Stagger: каждому элементу в сетке своя задержка появления ===== */
+document.querySelectorAll('.grid').forEach(g => {
+  g.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i * 120) + 'ms'; });
+});
+
+/* ===== Появление блоков при скролле ===== */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if(en.isIntersecting){
+      en.target.classList.add('visible');
+      io.unobserve(en.target);
+      /* после появления снимаем задержку, чтобы hover не «тормозил» */
+      setTimeout(() => { en.target.style.transitionDelay = ''; }, 1200);
+    }
+  });
+}, {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ===== Светящаяся линия процесса: заполняется по мере скролла ===== */
+(function(){
+  const steps = document.querySelector('.steps');
+  const line = steps.querySelector('.steps-line');
+  const items = steps.querySelectorAll('.step');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches; /* без анимации — линия сразу полная */
+  function layout(){
+    /* на мобильных линия вертикальная: тянется от первого кружка до последнего */
+    if(matchMedia('(min-width:1024px)').matches) line.style.height = '';
+    else line.style.height = items[items.length-1].offsetTop + 'px';
+  }
+  function update(){
+    const r = steps.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const horizontal = matchMedia('(min-width:1024px)').matches;
+    const range = horizontal ? vh * 0.5 : r.height;
+    let p = still ? 1 : (vh * 0.7 - r.top) / range;
+    p = Math.max(0, Math.min(1, p));
+    line.style.setProperty('--p', p);
+    items.forEach((el, i) => el.classList.toggle('active', p >= i / (items.length - 1) - 0.001 && p > 0));
+  }
+  layout(); update();
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', () => { layout(); update(); });
+})();
+
+/* ===== Кнопка «Наверх» ===== */
+const toTop = document.getElementById('toTop');
+window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 500), {passive:true});
+toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+/* ===== Выбор услуги -> чат в Telegram ===== */
+const opts = document.querySelectorAll('#pick .opt');
+const writeBtn = document.getElementById('writeBtn');
+const pickNote = document.getElementById('pickNote');
+opts.forEach(o => o.addEventListener('click', () => {
+  opts.forEach(x => x.setAttribute('aria-checked', x === o ? 'true' : 'false'));
+  const text = 'Привет, нужна консультация\nУслуга: ' + o.dataset.service + '\nЦена: ' + o.dataset.price;
+  writeBtn.href = 'https://t.me/BOPHAMETEAM?text=' + encodeURIComponent(text);
+  writeBtn.classList.remove('disabled');
+  writeBtn.setAttribute('aria-disabled', 'false');
+  pickNote.textContent = 'Нажмите «Написать мне» — откроется чат с готовым сообщением';
+}));
+</script>
+</body>
+</html>
